@@ -1,0 +1,50 @@
+body {
+    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
+    url("JesterBackground.png");
+    /* Full height */
+    height: 100%;
+
+    font: italic small-caps bold 16px/2 cursive;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+header {
+    margin: 0px 100px 20px;
+    background-color: rgba(255, 255, 0, 0.5);
+    border: solid;
+    border-color: rgba(0, 0, 255, 0.5);
+    border-width: thick;
+}
+
+main {
+    background-color: rgba(255, 255, 0, 0.5);
+    border: solid;
+    border-radius: 10% / 50%;
+    border-width: thick;
+    border-color: rgba(0, 0, 255, 0.5);
+    margin: 50px 600px 20px;
+    margin-bottom: 500px;
+}
+
+footer {
+    position: absolute;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+
+
