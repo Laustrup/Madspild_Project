@@ -12,7 +12,55 @@
 </header>
 
 <main>
-    <form action="" method="post">
+    <form action="/submit-event" method="post">
+
+        <label for="Type">Type:</label>
+        <div>
+            <input type="text" id="Type" name="Type">
+        </div>
+
+
+        <div>
+            <label for="Adress">Adresse:</label>
+            <div>
+                <input type="text" id="Adress" name="Adress">
+            </div>
+
+        </div>
+
+        <div>
+            <label for="Description">Beskrivelse:</label>
+            <div>
+                <input type="text" id="Description" name="Description">
+            </div>
+
+        </div>
+
+
+        <section>
+            <label for="Hours">Tidspunkt:</label>
+            <div>
+                <input type="text" id="Hours" name="Hours">
+                <p>:</p>
+                <label for="Minutes"></label>
+                <input type="text" id="Minutes" name="Minutes">
+            </div>
+
+        </section>
+
+        <div>
+            <label for="GiveAway">Gratis:</label>
+            <input type="checkbox" id="GiveAway" name="GiveAway">
+        </div>
+
+        <div>
+            <label for="Password">Adgangskode:</label>
+            <input type="text" id="Password" name="Password">
+        </div>
+
+        <div>
+            <button type="submit" class="button">Lav nadver</button>
+        </div>
 
     </form>
 

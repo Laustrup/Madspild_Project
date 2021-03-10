@@ -21,6 +21,8 @@ header {
 }
 
 main {
+    display: flex;
+    flex-direction: column;
     background-color: rgba(255, 255, 0, 0.5);
     border: solid;
     border-radius: 10% / 50%;
@@ -28,6 +30,10 @@ main {
     border-color: rgba(0, 0, 255, 0.5);
     margin: 50px 600px 20px;
     margin-bottom: 500px;
+}
+
+#Description {
+    height: 100px;
 }
 
 footer {
