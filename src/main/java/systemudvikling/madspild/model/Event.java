@@ -17,7 +17,8 @@ public class Event {
     private String password;
 
     public Event(String type, String address, String description, String start,
-                 String end, boolean isGiveAway, String password) throws IllegalArgumentException{
+                 String end, boolean isGiveAway, String password)
+            throws IllegalArgumentException,InputMismatchException {
 
         this.type = type;
         this.address = address;
@@ -34,7 +35,8 @@ public class Event {
         this.password = password;
     }
 
-    private void convertTimeToInt(String[] startAlt, String[] endAlt) throws  IllegalArgumentException {
+    private void convertTimeToInt(String[] startAlt, String[] endAlt) throws  IllegalArgumentException,
+            InputMismatchException {
 
         double startMinutes = 0;
         double startHours = 0;
@@ -42,16 +44,22 @@ public class Event {
         double endMinutes = 0;
         double endHours = 0;
 
+        boolean throwException = false;
+
         try {
             startHours = Double.parseDouble(startAlt[0]);
             startMinutes = Double.parseDouble(startAlt[1]);
 
             endHours = Double.parseDouble(endAlt[0]);
             endMinutes = Double.parseDouble(endAlt[1]);
-
         }
         catch (InputMismatchException e) {
             System.out.println("Will not accept words as time...");
+            throwException = true;
+        }
+
+        if (throwException) {
+            throw new InputMismatchException();
         }
 
         if (startHours > 24 || endHours > 24 || startMinutes > 59 || endMinutes > 59) {
