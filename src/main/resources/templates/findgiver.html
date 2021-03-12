@@ -13,7 +13,29 @@
 <main id="findgivermain">
 
         <ul th:each="events : ${Events}">
-            <li th:text="${events.getPassword}"></li>
+            <section>
+                <h3>Type af giver: </h3>
+                <li th:text="${events.getType()}"></li>
+
+                <div>
+                    <h3>Lokation: </h3>
+                    <li th:text="${events.getAddress()}"></li>
+                </div>
+
+                <div>
+                    <h3>Beskrivelse: </h3>
+                    <li th:text="${events.getAddress()}"></li>
+                </div>
+
+                <div>
+                    <h3>Beskrivelse: </h3>
+                    <li th:text="${events.getAddress()}"></li>
+                </div>
+
+            </section>
+
+
+
         </ul>
     <h3><a href="index.html" class="button">Gå tilbage</a></h3>
 

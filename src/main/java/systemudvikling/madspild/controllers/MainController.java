@@ -66,17 +66,18 @@ public class MainController {
                               @RequestParam(name = "GiveAway", required = false) boolean isGiveAway,
                               @RequestParam(name = "Password") String passWord, RedirectAttributes attributes) {
 
-        boolean returnToMakeevent = checkInputs(type, adress, hours, minutes, passWord);
+        boolean isAllowedInput = checkInputs(type, adress, hours, minutes, passWord);
+
+        boolean returnToMakeevent = CheckIfReturn(isAllowedInput, isGiveAway,
+                type,adress,description,hours,minutes,passWord);
 
         if (returnToMakeevent) {
-            System.out.println("Required inputs was not written...");
             return "redirect:/makeeventagain.html";
         }
-        if (isGiveAway != true) {
-            isGiveAway = Boolean.FALSE.equals(isGiveAway);
+        else {
+            event = new Event(type,adress,description,hours,minutes,isGiveAway,passWord);
         }
 
-        event = new Event(type,adress,description,hours,minutes,isGiveAway,passWord);
         events.add(event);
 
         session = request.getSession();
@@ -112,6 +113,26 @@ public class MainController {
             return true;
         }
         else if (passWord.equals("")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean CheckIfReturn(boolean isAllowedInput, boolean isGiveAway, String type, String adress,
+                                  String description, String hours, String minutes, String passWord) {
+        if (isAllowedInput) {
+            System.out.println("Required inputs was not written...");
+            return true;
+        }
+        if (isGiveAway != true) {
+            isGiveAway = Boolean.FALSE.equals(isGiveAway);
+        }
+
+        try {
+            event = new Event(type,adress,description,hours,minutes,isGiveAway,passWord);
+        }
+        catch (IllegalArgumentException e) {
             return true;
         }
 
