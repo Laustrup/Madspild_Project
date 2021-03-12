@@ -11,7 +11,12 @@
 </header>
 
 <main>
+
+        <ul th:each="events : ${Events}">
+            <li th:text="${events}"></li>
+        </ul>
     <h3><a href="index.html" class="button">Gå tilbage</a></h3>
+
 </main>
 
 </body>

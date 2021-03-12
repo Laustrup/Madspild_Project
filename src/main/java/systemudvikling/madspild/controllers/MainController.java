@@ -50,6 +50,13 @@ public class MainController {
         return "success.html";
     }
 
+    @GetMapping("/findgiver.html")
+    public String findAGiver(Model model) {
+        model = null;
+        model.addAttribute("Events",events);
+        return "findgiver.html";
+    }
+
     @PostMapping("/submit-event")
     public String createEvent(HttpServletRequest request, Model model,
                               @RequestParam(name = "Type") String type,
@@ -60,7 +67,7 @@ public class MainController {
                               @RequestParam(name = "GiveAway", required = false) boolean isGiveAway,
                               @RequestParam(name = "Password") String passWord, RedirectAttributes attributes) {
 
-        boolean returnToMakeevent = checkInputs(type, adress, hours, minutes, passWord, isGiveAway);
+        boolean returnToMakeevent = checkInputs(type, adress, hours, minutes, passWord);
 
         if (returnToMakeevent) {
             System.out.println("Required inputs was not written...");
@@ -71,14 +78,15 @@ public class MainController {
         }
 
         event = new Event(type,adress,description,hours,minutes,isGiveAway,passWord);
-        model.addAttribute("success", event);
         events.add(event);
 
         session = request.getSession();
 
+        /*
         session.setAttribute("Event", event);
 
         System.out.println(session.getAttribute("Event"));
+         */
 
         attributes.addAttribute("Type", type);
         attributes.addAttribute("Adress", adress);
@@ -91,7 +99,7 @@ public class MainController {
         return "redirect:/success.html";
     }
 
-    private boolean checkInputs(String type, String adress, String hours, String minutes, String passWord, boolean isGiveAway) {
+    private boolean checkInputs(String type, String adress, String hours, String minutes, String passWord) {
         if (type.equals("")) {
             return true;
         }
@@ -113,7 +121,7 @@ public class MainController {
 
     @GetMapping("/editevent.html")
     public String deleteEvent(Model model, @RequestParam(name = "Password") String passWord) {
-
+    /*
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getPassword().equals(passWord)) {
                 events.remove(events.get(i));
@@ -123,8 +131,10 @@ public class MainController {
         model.addAttribute("events", session.getAttribute("Event"));
 
         System.out.println(session.getAttribute("Event"));
-
+    */
         return "index.html";
+
+
     }
 
     @GetMapping("/index.html")
