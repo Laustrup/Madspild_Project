@@ -28,8 +28,6 @@ public class MainController {
     @GetMapping("/makeeventagain.html")
     public String nadverError() {
         return "makeeventagain.html";
-
-        //test
     }
 
     @GetMapping("/success.html")
@@ -142,6 +140,4 @@ public class MainController {
     public String goBack() {
         return "index.html";
     }
-//skriv noget
-
 }
