@@ -87,9 +87,6 @@ public class Event {
 
         String[] nowArr = now.split(":");
 
-        try {
-
-        }
     }
 
     public String getType() {
