@@ -39,12 +39,20 @@ public class MainController {
                               @RequestParam(name = "GiveAway", required = false) boolean isGiveAway,
                               @RequestParam(name = "Password") String passWord, Model model) {
 
+        String giveAwayString = "";
+        if (isGiveAway) {
+            giveAwayString = "ja";
+        }
+        else {
+            giveAwayString = "nej";
+        }
+
         model.addAttribute("Type", type);
         model.addAttribute("Adress", adress);
         model.addAttribute("Description", description);
         model.addAttribute("Hours", hours);
         model.addAttribute("Minutes", minutes);
-        model.addAttribute("GiveAway", isGiveAway);
+        model.addAttribute("GiveAway", giveAwayString);
         model.addAttribute("Password", passWord);
 
         return "success.html";

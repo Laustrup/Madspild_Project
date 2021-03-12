@@ -70,7 +70,7 @@ public class Event {
 
     public String getDescription() { return description; }
 
-    public String getTime() { return time; }
+   // public String getTime() { return time; }
 
     public String getIsGiveAway() {
         if (isGiveAway) {
@@ -94,6 +94,6 @@ public class Event {
         }
 
         return "type= " + type + " location= " + address + " beskrivelse= " + description +
-                " starttidspunkt= " + start + " sluttidspunkt= " + end + giveAway + "adgangskode er " + password;
+                " starttidspunkt= " + timeStart + " sluttidspunkt= " + timeEnd + giveAway + "adgangskode er " + password;
     }
 }
