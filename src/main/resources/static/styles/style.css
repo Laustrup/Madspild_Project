@@ -55,3 +55,10 @@ footer {
     margin-bottom: 0px;
     margin-top: 40px;
 }
+
+#typeSuccess {
+    display: flex;
+    flex-direction: row;
+    border: solid black 12px;
+
+}

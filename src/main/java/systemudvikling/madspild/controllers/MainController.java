@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import systemudvikling.madspild.model.Event;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +29,24 @@ public class MainController {
     public String nadverError() {
         return "makeeventagain.html";
     }
+
     @GetMapping("/success.html")
-    public String itsASuccess() {
+    public String itsASuccess(@RequestParam(name = "Type") String type,
+                              @RequestParam(name = "Adress") String adress,
+                              @RequestParam(name = "Description", required = false) String description,
+                              @RequestParam(name = "Hours") String hours,
+                              @RequestParam(name = "Minutes") String minutes,
+                              @RequestParam(name = "GiveAway", required = false) boolean isGiveAway,
+                              @RequestParam(name = "Password") String passWord, Model model) {
+
+        model.addAttribute("Type", type);
+        model.addAttribute("Adress", adress);
+        model.addAttribute("Description", description);
+        model.addAttribute("Hours", hours);
+        model.addAttribute("Minutes", minutes);
+        model.addAttribute("GiveAway", isGiveAway);
+        model.addAttribute("Password", passWord);
+
         return "success.html";
     }
 
@@ -40,7 +58,7 @@ public class MainController {
                               @RequestParam(name = "Hours") String hours,
                               @RequestParam(name = "Minutes") String minutes,
                               @RequestParam(name = "GiveAway", required = false) boolean isGiveAway,
-                              @RequestParam(name = "Password") String passWord) {
+                              @RequestParam(name = "Password") String passWord, RedirectAttributes attributes) {
 
         boolean returnToMakeevent = checkInputs(type, adress, hours, minutes, passWord, isGiveAway);
 
@@ -58,7 +76,16 @@ public class MainController {
         session = request.getSession();
 
         session.setAttribute("Event", event);
+
         System.out.println(session.getAttribute("Event"));
+
+        attributes.addAttribute("Type", type);
+        attributes.addAttribute("Adress", adress);
+        attributes.addAttribute("Description", description);
+        attributes.addAttribute("Hours", hours);
+        attributes.addAttribute("Minutes", minutes);
+        attributes.addAttribute("GiveAway", isGiveAway);
+        attributes.addAttribute("Password", passWord);
 
         return "redirect:/success.html";
     }
