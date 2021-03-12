@@ -47,8 +47,8 @@ public class MainController {
         model.addAttribute("GiveAway", isGiveAway);
         model.addAttribute("Password", passWord);
 
+        ///testest
 
-        //yolo
         return "success.html";
     }
 
