@@ -71,6 +71,7 @@ public class MainController {
         }
 
         event = new Event(type,adress,description,hours,minutes,isGiveAway,passWord);
+        model.addAttribute("success", event);
         events.add(event);
 
         session = request.getSession();
