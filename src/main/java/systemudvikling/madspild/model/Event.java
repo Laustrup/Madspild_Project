@@ -20,6 +20,27 @@ public class Event {
         this.password = password;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public String getAddress() { return address; }
+
+    public String getDescription() { return description; }
+
+    public String getStart() { return start; }
+
+    public String getEnd() { return end; }
+
+    public String getIsGiveAway() {
+        if (isGiveAway) {
+            return "Ja";
+        }
+        else {
+            return "nej";
+        }
+    }
+
     public String getPassword() {
         return password;
     }

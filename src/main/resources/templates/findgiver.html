@@ -13,7 +13,7 @@
 <main id="findgivermain">
 
         <ul th:each="events : ${Events}">
-            <li th:text="${events}"></li>
+            <li th:text="${events.getPassword}"></li>
         </ul>
     <h3><a href="index.html" class="button">Gå tilbage</a></h3>
 
