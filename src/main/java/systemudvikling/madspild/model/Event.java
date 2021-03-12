@@ -86,7 +86,7 @@ public class Event {
         String now = dateFormat.format(date);
 
         String[] nowArr = now.split(":");
-
+        return 0.0;
     }
 
     public String getType() {
