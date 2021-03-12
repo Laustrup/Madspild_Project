@@ -12,8 +12,10 @@
 </header>
 
 <main>
-    <p th:text="${Event}"></p>
 
+    <section id="elementsSucess">
+
+    <section id="firstTwo">
     <section id="typeSuccess">
         <h3>Type: </h3>
         <p th:text="${Type}"></p>
@@ -23,7 +25,36 @@
         <h3>Adresse: </h3>
         <p th:text="${Adress}"></p>
     </section>
+    </section>
 
+    <section id="descriptionSuccess">
+        <h3>Beskrivelse: </h3>
+        <p th:text="${Description}"></p>
+    </section>
+
+    <section id="timeSection">
+    <section id="HoursSuccess">
+        <h3>Fra kl: </h3>
+        <p th:text="${Hours}"></p>
+    </section>
+
+    <section id="MinutesSuccess">
+        <h3>Til kl: </h3>
+        <p th:text="${Minutes}"></p>
+    </section>
+    </section>
+
+    <section id="GiveAwaySuccess">
+        <h3>Gratis?: </h3>
+        <p th:text="${GiveAway}"></p>
+    </section>
+
+    <section id="PasswordSuccess">
+        <h3>Kodeord: </h3>
+        <p th:text="${Password}"></p>
+    </section>
+
+    </section>
     <h3><a href="index.html" class="button">Gå tilbage</a></h3>
 </main>
 
