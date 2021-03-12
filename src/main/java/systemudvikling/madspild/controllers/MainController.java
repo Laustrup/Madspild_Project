@@ -1,15 +1,12 @@
 package systemudvikling.madspild.controllers;
 
-import org.apache.catalina.connector.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import systemudvikling.madspild.model.Event;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -66,7 +63,7 @@ public class MainController {
     }
 
     @PostMapping("/submit-event")
-    public String createEvent(HttpServletRequest request, Model model,
+    public String createEvent(HttpServletRequest request,
                               @RequestParam(name = "Type") String type,
                               @RequestParam(name = "Adress") String adress,
                               @RequestParam(name = "Description", required = false) String description,
