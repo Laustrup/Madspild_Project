@@ -52,7 +52,6 @@ public class MainController {
 
     @GetMapping("/findgiver.html")
     public String findAGiver(Model model) {
-        model = null;
         model.addAttribute("Events",events);
         return "findgiver.html";
     }

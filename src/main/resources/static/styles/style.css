@@ -32,6 +32,18 @@ main {
     margin-bottom: 500px;
 }
 
+#findgivermain {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 0, 0.5);
+    border: solid;
+    border-radius: 10% / 50%;
+    border-width: thick;
+    border-color: rgba(0, 0, 255, 0.5);
+    margin: 50px 200px 20px;
+    margin-bottom: 500px;
+}
+
 #Description {
     height: 100px;
 }
