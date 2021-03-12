@@ -28,6 +28,8 @@ public class MainController {
     @GetMapping("/makeeventagain.html")
     public String nadverError() {
         return "makeeventagain.html";
+
+        //test
     }
 
     @GetMapping("/success.html")
