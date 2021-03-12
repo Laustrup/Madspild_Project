@@ -1,6 +1,7 @@
 package systemudvikling.madspild.model;
 
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.InputMismatchException;
 
 public class Event {
@@ -11,10 +12,14 @@ public class Event {
 
     private double timeStart;
     private double timeEnd;
+    private double present;
     private double time;
 
     private boolean isGiveAway;
     private String password;
+
+    private Date date = new Date();
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd:mm:yyyy");
 
     public Event(String type, String address, String description, String start,
                  String end, boolean isGiveAway, String password)
@@ -27,15 +32,22 @@ public class Event {
         String[] startAlt = start.split(":");
         String[] endAlt = end.split(":");
 
-        convertTimeToInt(startAlt, endAlt);
+        convertTimeToDouble(startAlt, endAlt);
 
-        time = timeEnd - timeStart;
+        present = convertDateToDouble();
+
+        if (timeStart > present) {
+            time = timeEnd - timeStart;
+        }
+        else {
+            time = timeEnd - present;
+        }
 
         this.isGiveAway = isGiveAway;
         this.password = password;
     }
 
-    private void convertTimeToInt(String[] startAlt, String[] endAlt) throws  IllegalArgumentException,
+    private void convertTimeToDouble(String[] startAlt, String[] endAlt) throws  IllegalArgumentException,
             InputMismatchException {
 
         double startMinutes = 0;
@@ -70,6 +82,16 @@ public class Event {
         timeEnd = endHours + (endMinutes/100);
     }
 
+    private Double convertDateToDouble() {
+        String now = dateFormat.format(date);
+
+        String[] nowArr = now.split(":");
+
+        try {
+
+        }
+    }
+
     public String getType() {
         return type;
     }
@@ -78,7 +100,7 @@ public class Event {
 
     public String getDescription() { return description; }
 
-    public String getTime() { return time; }
+    //public String getTime() { return time; }
 
     public String getIsGiveAway() {
         if (isGiveAway) {
@@ -102,6 +124,6 @@ public class Event {
         }
 
         return "type= " + type + " location= " + address + " beskrivelse= " + description +
-                " starttidspunkt= " + start + " sluttidspunkt= " + end + giveAway + "adgangskode er " + password;
+                " starttidspunkt= " + timeStart + " sluttidspunkt= " + timeEnd + giveAway + "adgangskode er " + password;
     }
 }
