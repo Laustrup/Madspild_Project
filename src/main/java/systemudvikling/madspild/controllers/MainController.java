@@ -13,6 +13,7 @@ import systemudvikling.madspild.model.Event;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 @Controller
 public class MainController {
@@ -133,6 +134,9 @@ public class MainController {
             event = new Event(type,adress,description,hours,minutes,isGiveAway,passWord);
         }
         catch (IllegalArgumentException e) {
+            return true;
+        }
+        catch (InputMismatchException e) {
             return true;
         }
 
