@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import systemudvikling.madspild.model.Event;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -24,23 +23,33 @@ public class MainController {
 
     @GetMapping("/makeevent.html")
     public String createNadver(Model model) {
-
-        if (returnToMakeevent && typeOfRedirect.equals("Not written")) {
-            model.addAttribute("Exception", "Alle felter med * skal besvares!");
-            System.out.println("Reached not written statement");
-        }
-        else if (returnToMakeevent && typeOfRedirect.equals("Time exception")) {
-            model.addAttribute("Exception", "Tidsformattet er forkert!");
-            System.out.println("Reached time exception statement");
-        }
-        else if (returnToMakeevent && isPasswordTaken) {
-            model.addAttribute("Exception", "Adgangskode findes allerede...");
-            System.out.println("Reached password is taken statement");
-        }
-        returnToMakeevent = false;
+        arrangeModel(model);
 
         return "makeevent.html";
     }
+
+    private void arrangeModel(Model model) {
+        if (typeOfRedirect.equals("Not written")) {
+            model.addAttribute("Exception", "Alle felter med * skal besvares!");
+            System.out.println("Reached not written statement");
+        }
+        else if (typeOfRedirect.equals("Time exception")) {
+            model.addAttribute("Exception", "Tidsformattet er forkert!");
+            System.out.println("Reached time exception statement");
+        }
+        else if (isPasswordTaken) {
+            model.addAttribute("Exception", "Adgangskode findes allerede...");
+            System.out.println("Reached password is taken statement");
+        }
+        else {
+            model.addAttribute("Exception", "");
+        }
+        returnToMakeevent = false;
+        isPasswordTaken = false;
+        typeOfRedirect = "";
+
+    }
+
     @GetMapping("/makeeventagain.html")
     public String nadverError() {
         return "makeeventagain.html";
@@ -81,14 +90,13 @@ public class MainController {
     }
 
     @PostMapping("/submit-event")
-    public String createEvent(Model model,
-            @RequestParam(name = "Type") String type,
-            @RequestParam(name = "Adress") String adress,
-            @RequestParam(name = "Description", required = false) String description,
-            @RequestParam(name = "Hours") String hours,
-            @RequestParam(name = "Minutes") String minutes,
-            @RequestParam(name = "GiveAway", required = false) boolean isGiveAway,
-            @RequestParam(name = "Password") String passWord, RedirectAttributes attributes) {
+    public String createEvent(@RequestParam(name = "Type") String type,
+                              @RequestParam(name = "Adress") String adress,
+                              @RequestParam(name = "Description", required = false) String description,
+                              @RequestParam(name = "Hours") String hours,
+                              @RequestParam(name = "Minutes") String minutes,
+                              @RequestParam(name = "GiveAway", required = false) boolean isGiveAway,
+                              @RequestParam(name = "Password") String passWord, RedirectAttributes attributes) {
 
         boolean hasException = checkForEvent(type,adress,description,hours,minutes,passWord,isGiveAway);
 
@@ -99,7 +107,6 @@ public class MainController {
         event = new Event(type,adress,description,hours,minutes,isGiveAway,passWord);
         events.add(event);
 
-        model.addAttribute("Exception", "");
         attributes.addAttribute("Type", type);
         attributes.addAttribute("Adress", adress);
         attributes.addAttribute("Description", description);
@@ -160,7 +167,7 @@ public class MainController {
 
     private boolean checkPassword(String password) {
         for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).getPassword() == password) {
+            if (events.get(i).getPassword().equals(password)) {
                 return true;
             }
         }
@@ -176,7 +183,7 @@ public class MainController {
 
         isPasswordTaken = checkPassword(passWord);
 
-        if (returnToMakeevent) {
+        if (returnToMakeevent || isPasswordTaken) {
             return true;
         }
         return false;
