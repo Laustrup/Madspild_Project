@@ -56,21 +56,55 @@ footer {
     margin-top: 40px;
 }
 
-#typeSuccess {
-    display:flex;
-    flex-direction: column;
-    margin-bottom: 10px;
+#typeSuccess h3 {
     color: blue;
 }
 
+#adressSuccess h3 {
+    margin-top: 30px;
+    color: blue;
+}
+
+#descriptionSuccess h3 {
+    margin-top: 30px;
+    color: blue;
+}
+
+#timeSection h3 {
+    margin-top: 30px;
+    color: blue;
+}
+
+#GiveAwaySuccess h3 {
+    margin-top: 30px;
+    color: blue;
+}
+
+#PasswordSuccess h3 {
+    margin-top: 30px;
+    color: blue;
+}
+
+
+
 #findgiver-type-lokation {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
+
+#findgiver-type-lokation h3 {
+    margin-right: 10px;
+    margin-left: 100px;
+}
+
 
 #findgiver-description {
     display: flex;
     justify-content: center;
+}
+
+#findgiver-description h3 {
+    margin-right: 10px;
 }
 
 #findgiver-time-free {
@@ -80,15 +114,19 @@ footer {
 
 .findgiverlist li {
     display: inline;
-    color: snow;
+    color: black;
+    font-family: Arial;
+    margin-bottom: 8px;
+    margin-top: 8px;
 }
 
 .findgiverlist h3 {
     display: inline;
     color: black;
-    margin-left: 10px;
-    margin-bottom: 1px;
-    margin-top: 1px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-family: "Times New Roman";
 }
 
 #findgivermain {

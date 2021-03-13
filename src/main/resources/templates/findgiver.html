@@ -28,11 +28,14 @@
 
             <section id="findgiver-time-free">
                 <h3>Fra kl: </h3>
-                <li th:text="${events.getAddress()}"></li>
+                <li th:text="${events.getStart()}"></li>
 
 
-                <h3>til kl: </h3>
-                <li th:text="${events.getAddress()}"></li>
+                <h3>Til kl: </h3>
+                <li th:text="${events.getEnd()}"></li>
+
+                <h3>Varighed (i timer): </h3>
+                <li th:text="${events.getAmountOfTime()}"></li>
 
 
                 <h3>Gratis?: </h3>

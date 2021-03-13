@@ -9,11 +9,13 @@ public class Event {
     private String type;
     private String address;
     private String description;
+    private String start;
+    private String end;
 
     private double timeStart;
     private double timeEnd;
     private double present;
-    private double time;
+    private double amountOfTime;
 
     private boolean isGiveAway;
     private String password;
@@ -37,14 +39,17 @@ public class Event {
         present = convertDateToDouble();
 
         if (timeStart > present) {
-            time = timeEnd - timeStart;
+            amountOfTime = timeEnd - timeStart;
         }
         else {
-            time = timeEnd - present;
+            amountOfTime = timeEnd - present;
         }
 
         this.isGiveAway = isGiveAway;
         this.password = password;
+        this.start = start;
+        this.end = end;
+
     }
 
     private void convertTimeToDouble(String[] startAlt, String[] endAlt) throws  IllegalArgumentException,
@@ -78,8 +83,8 @@ public class Event {
             throw new IllegalArgumentException();
         }
 
-        timeStart = startHours + (startMinutes/100);
-        timeEnd = endHours + (endMinutes/100);
+        timeStart = startHours + (startMinutes/100); //her skal der være /60, ellers regner den forkert
+        timeEnd = endHours + (endMinutes/100); //her skal også være /60, af samme årsag
     }
 
     private Double convertDateToDouble() {
@@ -96,6 +101,19 @@ public class Event {
     public String getAddress() { return address; }
 
     public String getDescription() { return description; }
+
+    public String getStart(){
+        return start;
+    }
+
+    public String getEnd(){
+        return end;
+    }
+
+    public String getAmountOfTime(){
+        String amountOfTimeToString = String.format("%.01f", amountOfTime);
+        return amountOfTimeToString;
+    }
 
     //public String getTime() { return time; }
 
