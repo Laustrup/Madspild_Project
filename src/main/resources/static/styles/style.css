@@ -63,22 +63,32 @@ footer {
     color: blue;
 }
 
-#findgiversection {
-    display: inline;
-    float: left;
+#findgiver-type-lokation {
+    display: flex;
+    justify-content: space-evenly;
 }
 
+#findgiver-description {
+    display: flex;
+    justify-content: center;
+}
+
+#findgiver-time-free {
+    display: flex;
+    justify-content: space-evenly;
+}
 
 .findgiverlist li {
     display: inline;
     color: snow;
-
 }
 
 .findgiverlist h3 {
     display: inline;
     color: black;
     margin-left: 10px;
+    margin-bottom: 1px;
+    margin-top: 1px;
 }
 
 #findgivermain {
@@ -92,5 +102,3 @@ footer {
     margin: 50px 100px 20px;
     margin-bottom: 500px;
 }
-
-

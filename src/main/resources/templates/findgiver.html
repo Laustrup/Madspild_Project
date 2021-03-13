@@ -13,18 +13,20 @@
 <main id="findgivermain">
 
         <ul class="findgiverlist" th:each="events : ${Events}">
-            <section id="findgiversection">
+            <section id="findgiver-type-lokation">
                 <h3>Type af giver: </h3>
                 <li th:text="${events.getType()}"></li>
 
                 <h3>Lokation: </h3>
                 <li th:text="${events.getAddress()}"></li>
+            </section>
 
-
+            <section id="findgiver-description">
                 <h3>Beskrivelse: </h3>
                 <li th:text="${events.getDescription()}"></li>
+            </section>
 
-
+            <section id="findgiver-time-free">
                 <h3>Fra kl: </h3>
                 <li th:text="${events.getAddress()}"></li>
 
@@ -37,7 +39,7 @@
                 <li th:text="${events.getIsGiveAway()}"></li>
 
             </section>
-
+            <p>-----------------------------------------------------------------------------------------------------------------------</p>
 
 
 
