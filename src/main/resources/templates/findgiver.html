@@ -12,27 +12,32 @@
 
 <main id="findgivermain">
 
-        <ul th:each="events : ${Events}">
-            <section>
+        <ul class="findgiverlist" th:each="events : ${Events}">
+            <section id="findgiversection">
                 <h3>Type af giver: </h3>
                 <li th:text="${events.getType()}"></li>
 
-                <div>
-                    <h3>Lokation: </h3>
-                    <li th:text="${events.getAddress()}"></li>
-                </div>
+                <h3>Lokation: </h3>
+                <li th:text="${events.getAddress()}"></li>
 
-                <div>
-                    <h3>Beskrivelse: </h3>
-                    <li th:text="${events.getAddress()}"></li>
-                </div>
 
-                <div>
-                    <h3>Beskrivelse: </h3>
-                    <li th:text="${events.getAddress()}"></li>
-                </div>
+                <h3>Beskrivelse: </h3>
+                <li th:text="${events.getDescription()}"></li>
+
+
+                <h3>Fra kl: </h3>
+                <li th:text="${events.getAddress()}"></li>
+
+
+                <h3>til kl: </h3>
+                <li th:text="${events.getAddress()}"></li>
+
+
+                <h3>Gratis?: </h3>
+                <li th:text="${events.getIsGiveAway()}"></li>
 
             </section>
+
 
 
 
