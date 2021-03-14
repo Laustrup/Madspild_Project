@@ -93,6 +93,7 @@ public class MainController {
 
     @GetMapping("/findgiver.html")
     public String findAGiver(Model model) {
+        checkListForEndedTime();
         model.addAttribute("Events",events);
         return "findgiver.html";
     }
@@ -216,6 +217,7 @@ public class MainController {
 
     @GetMapping("/editevent.html")
     public String searchEvent(Model model) {
+        checkListForEndedTime();
         model.addAttribute("Couldnotfindevent", "");
         return "editevent.html";
     }
@@ -259,12 +261,22 @@ public class MainController {
     public String deleteEvent() {
 
         for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).toString() == chosenEvent.toString()){
+            if (events.get(i).toString().equals(chosenEvent.toString())){
                 events.remove(i);
+                break;
             }
         }
 
-        return "eventdelected.html";
+        return "eventdeleted.html";
+    }
+
+    private void checkListForEndedTime() {
+
+        for (int i = 0; i < events.size(); i++) {
+            if (Double.parseDouble(events.get(i).getEnd()) < events.get(i).getPresent()) {
+                events.remove(i);
+            }
+        }
     }
 
     @GetMapping("/index.html")

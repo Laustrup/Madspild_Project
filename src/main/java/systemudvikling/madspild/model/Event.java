@@ -115,6 +115,10 @@ public class Event {
         return amountOfTimeToString;
     }
 
+    public double getPresent() {
+        return present;
+    }
+
     //public String getTime() { return time; }
 
     public String getIsGiveAway() {
