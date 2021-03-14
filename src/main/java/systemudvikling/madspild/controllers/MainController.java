@@ -14,6 +14,7 @@ import java.util.InputMismatchException;
 public class MainController {
 
     private Event event;
+    private Event chosenEvent;
     private ArrayList<Event> events = new ArrayList<>();
 
     private boolean isWritten;
@@ -221,20 +222,41 @@ public class MainController {
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getPassword().equals(passWord)) {
                 model.addAttribute("Chosen event",events.get(i));
+                chosenEvent = events.get(i);
                 isFound = true;
+                model.addAttribute("Could not find event", "");
                 break;
             }
+            else {
+                model.addAttribute("Could not find event", "Could not find event...");
+            }
         }
-        if (!isFound) {
-            model.addAttribute("Chosen event", "couldn't find event");
-            model.addAttribute("Chose to delete", "");
+
+        if (isFound) {
+            return "searchedevent.html";
         }
-        return "editevent.html";
+        else {
+            return "couldntfindevent.html";
+        }
+
+    }
+
+    @PostMapping("/eventdelected.html")
+    public String deleteEvent() {
+
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).toString() == chosenEvent.toString()){
+                events.remove(i);
+            }
+        }
+
+        return "eventdelected.html";
     }
 
     @GetMapping("/index.html")
-    public String goBack() {
+    public String goBack(Model model) {
         isAnSubmitError = false;
+        model.addAttribute("Could not find event", "");
         return "index.html";
     }
 
