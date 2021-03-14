@@ -87,11 +87,8 @@ public class Event {
         timeEnd = endHours + (endMinutes/60); //her skal også være /60, af samme årsag
     }
 
-    private Double convertDateToDouble() {
-        String now = dateFormat.format(date);
-
-        String[] nowArr = now.split(":");
-        return 0.0;
+    private double convertDateToDouble() {
+        return date.getHours() + date.getMinutes()/100;
     }
 
     public String getType() {

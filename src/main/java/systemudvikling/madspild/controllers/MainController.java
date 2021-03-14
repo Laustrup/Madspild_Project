@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import systemudvikling.madspild.model.Event;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 
 @Controller
@@ -25,6 +26,8 @@ public class MainController {
     private boolean tooLongDescription;
 
     private boolean isAnSubmitError;
+
+    private Date date = new Date();
 
     @GetMapping("/makeevent.html")
     public String createNadver(Model model) {
@@ -273,7 +276,15 @@ public class MainController {
     private void checkListForEndedTime() {
 
         for (int i = 0; i < events.size(); i++) {
-            if (Double.parseDouble(events.get(i).getEnd()) < events.get(i).getPresent()) {
+
+            String[] apartedColon = events.get(i).getEnd().split(":");
+
+            double endTime = Double.parseDouble(apartedColon[0]) + Double.parseDouble(apartedColon[1]) / 100;
+            double now = date.getHours() + date.getMinutes()/100;
+
+            System.out.println(endTime + " and now it's " + now);
+
+            if (endTime < now) {
                 events.remove(i);
             }
         }
