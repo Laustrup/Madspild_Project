@@ -15,11 +15,14 @@ public class MainController {
 
     private Event event;
     private ArrayList<Event> events = new ArrayList<>();
-    private String typeOfRedirect = new String();
 
+    private boolean isWritten;
+    private boolean correctTimeFormat;
     private boolean isAllowedInput;
     private boolean returnToMakeevent;
     private boolean isPasswordTaken;
+    private boolean tooLongDescription;
+    private boolean isAnSubmitError ;
 
     @GetMapping("/makeevent.html")
     public String createNadver(Model model) {
@@ -29,30 +32,33 @@ public class MainController {
     }
 
     private void arrangeModel(Model model) {
-        if (typeOfRedirect.equals("Not written")) {
-            model.addAttribute("Exception", "Alle felter med * skal besvares!");
-            System.out.println("Reached not written statement");
-        }
-        else if (typeOfRedirect.equals("Time exception")) {
-            model.addAttribute("Exception", "Tidsformattet er forkert!");
-            System.out.println("Reached time exception statement");
-        }
-        else if (isPasswordTaken) {
-            model.addAttribute("Exception", "Adgangskode findes allerede...");
-            System.out.println("Reached password is taken statement");
+        if (isAnSubmitError) {
+            if (!isWritten) {
+                model.addAttribute("Exception", "Alle felter med * skal besvares!");
+                System.out.println("Reached not written statement");
+            }
+            else if (!correctTimeFormat) {
+                model.addAttribute("Exception", "Tidsformattet er forkert!");
+                System.out.println("Reached time exception statement");
+            }
+            else if (isPasswordTaken) {
+                model.addAttribute("Exception", "Adgangskode findes allerede...");
+                System.out.println("Reached password is taken statement");
+            }
+            else if (tooLongDescription) {
+                model.addAttribute("Exception", "Beskrivelsen må højest have 90 tegn!");
+                System.out.println("Reached character statement");
+            }
         }
         else {
             model.addAttribute("Exception", "");
         }
+        //Clears all boolean attributes for next submit.
+        isWritten = true;
+        correctTimeFormat = true;
         returnToMakeevent = false;
         isPasswordTaken = false;
-        typeOfRedirect = "";
 
-    }
-
-    @GetMapping("/makeeventagain.html")
-    public String nadverError() {
-        return "makeeventagain.html";
     }
 
     @GetMapping("/success.html")
@@ -143,7 +149,7 @@ public class MainController {
                                   String description, String hours, String minutes, String passWord) {
         if (!isAllowedInput) {
             System.out.println("Required inputs was not written...");
-            typeOfRedirect = "Not written";
+            isWritten = false;
             return true;
         }
         if (isGiveAway != true) {
@@ -154,11 +160,17 @@ public class MainController {
             event = new Event(type,adress,description,hours,minutes,isGiveAway,passWord);
         }
         catch (IllegalArgumentException e) {
-            typeOfRedirect = "Time exception";
+            correctTimeFormat = false;
             return true;
         }
         catch (InputMismatchException e) {
-            typeOfRedirect = "Time exception";
+            correctTimeFormat = false;
+            return true;
+        }
+        if (isPasswordTaken) {
+            return true;
+        }
+        if (tooLongDescription) {
             return true;
         }
 
@@ -174,16 +186,27 @@ public class MainController {
         return false;
     }
 
+    private boolean checkDescriptionLength(String description) {
+        if (description.length() > 90) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
     private boolean checkForEvent(String type, String adress, String description, String hours, String minutes,
                                    String passWord, boolean isGiveAway) {
-        isAllowedInput = checkInputs(type, adress, hours, minutes, passWord);
 
+        isAllowedInput = checkInputs(type, adress, hours, minutes, passWord);
+        isPasswordTaken = checkPassword(passWord);
+        tooLongDescription = checkDescriptionLength(description);
         returnToMakeevent = checkIfReturn(isAllowedInput, isGiveAway,
                 type,adress,description,hours,minutes,passWord);
 
-        isPasswordTaken = checkPassword(passWord);
-
-        if (returnToMakeevent || isPasswordTaken) {
+        if (returnToMakeevent) {
+            isAnSubmitError = true;
             return true;
         }
         return false;
@@ -209,6 +232,13 @@ public class MainController {
 
     @GetMapping("/index.html")
     public String goBack() {
+        isAnSubmitError = false;
+        return "index.html";
+    }
+
+    @GetMapping("/")
+    public String start() {
+        isAnSubmitError = false;
         return "index.html";
     }
 }
