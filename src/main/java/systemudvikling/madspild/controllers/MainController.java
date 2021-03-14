@@ -22,7 +22,8 @@ public class MainController {
     private boolean returnToMakeevent;
     private boolean isPasswordTaken;
     private boolean tooLongDescription;
-    private boolean isAnSubmitError ;
+
+    private boolean isAnSubmitError;
 
     @GetMapping("/makeevent.html")
     public String createNadver(Model model) {
@@ -212,22 +213,23 @@ public class MainController {
         return false;
     }
 
-    @GetMapping("/editevent.html")
-    public String deleteEvent(Model model, @RequestParam(name = "Password") String passWord) {
-    /*
+    @PostMapping("/editevent.html")
+    public String showEvent(Model model, @RequestParam(name = "Search") String passWord) {
+
+        boolean isFound = false;
+
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getPassword().equals(passWord)) {
-                events.remove(events.get(i));
+                model.addAttribute("Chosen event",events.get(i));
+                isFound = true;
+                break;
             }
         }
-        model = null;
-        model.addAttribute("events", session.getAttribute("Event"));
-
-        System.out.println(session.getAttribute("Event"));
-    */
-        return "index.html";
-
-
+        if (!isFound) {
+            model.addAttribute("Chosen event", "couldn't find event");
+            model.addAttribute("Chose to delete", "");
+        }
+        return "editevent.html";
     }
 
     @GetMapping("/index.html")
