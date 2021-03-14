@@ -257,7 +257,7 @@ public class MainController {
 
     }
 
-    @PostMapping("/delecteevent")
+    @PostMapping("/deleteevent")
     public String deleteEvent() {
 
         for (int i = 0; i < events.size(); i++) {
@@ -277,6 +277,11 @@ public class MainController {
                 events.remove(i);
             }
         }
+    }
+
+    @GetMapping("/om-nadver.html")
+    public String aboutNadver() {
+        return "/om-nadver.html";
     }
 
     @GetMapping("/index.html")
