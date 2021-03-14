@@ -214,34 +214,48 @@ public class MainController {
         return false;
     }
 
-    @PostMapping("/editevent.html")
+    @GetMapping("/editevent.html")
+    public String searchEvent(Model model) {
+        model.addAttribute("Couldnotfindevent", "");
+        return "editevent.html";
+    }
+
+    @PostMapping("/showevent")
     public String showEvent(Model model, @RequestParam(name = "Search") String passWord) {
 
         boolean isFound = false;
 
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getPassword().equals(passWord)) {
-                model.addAttribute("Chosen event",events.get(i));
+                model.addAttribute("Chosenevent",events.get(i));
                 chosenEvent = events.get(i);
                 isFound = true;
-                model.addAttribute("Could not find event", "");
+                model.addAttribute("Couldnotfindevent", "");
                 break;
             }
             else {
-                model.addAttribute("Could not find event", "Could not find event...");
+                model.addAttribute("Couldnotfindevent", "Could not find event...");
             }
         }
+
+        model.addAttribute("Type", chosenEvent.getType());
+        model.addAttribute("Adress", chosenEvent.getAddress());
+        model.addAttribute("Description", chosenEvent.getDescription());
+        model.addAttribute("Hours", chosenEvent.getStart());
+        model.addAttribute("Minutes", chosenEvent.getEnd());
+        model.addAttribute("GiveAway", chosenEvent.getIsGiveAway());
+        model.addAttribute("Password", chosenEvent.getPassword());
 
         if (isFound) {
             return "searchedevent.html";
         }
         else {
-            return "couldntfindevent.html";
+            return "editevent.html";
         }
 
     }
 
-    @PostMapping("/eventdelected.html")
+    @PostMapping("/delecteevent")
     public String deleteEvent() {
 
         for (int i = 0; i < events.size(); i++) {
@@ -256,7 +270,7 @@ public class MainController {
     @GetMapping("/index.html")
     public String goBack(Model model) {
         isAnSubmitError = false;
-        model.addAttribute("Could not find event", "");
+        model.addAttribute("Couldnotfindevent", "");
         return "index.html";
     }
 
