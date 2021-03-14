@@ -83,8 +83,8 @@ public class Event {
             throw new IllegalArgumentException();
         }
 
-        timeStart = startHours + (startMinutes/100); //her skal der være /60, ellers regner den forkert
-        timeEnd = endHours + (endMinutes/100); //her skal også være /60, af samme årsag
+        timeStart = startHours + (startMinutes/60); //her skal der være /60, ellers regner den forkert
+        timeEnd = endHours + (endMinutes/60); //her skal også være /60, af samme årsag
     }
 
     private Double convertDateToDouble() {
