@@ -14,6 +14,7 @@ import java.util.InputMismatchException;
 public class MainController {
 
     private Event event;
+    private Event chosenEvent;
     private ArrayList<Event> events = new ArrayList<>();
 
     private boolean isWritten;
@@ -22,7 +23,8 @@ public class MainController {
     private boolean returnToMakeevent;
     private boolean isPasswordTaken;
     private boolean tooLongDescription;
-    private boolean isAnSubmitError ;
+
+    private boolean isAnSubmitError;
 
     @GetMapping("/makeevent.html")
     public String createNadver(Model model) {
@@ -212,27 +214,49 @@ public class MainController {
         return false;
     }
 
-    @GetMapping("/editevent.html")
-    public String deleteEvent(Model model, @RequestParam(name = "Password") String passWord) {
-    /*
+    @PostMapping("/editevent.html")
+    public String showEvent(Model model, @RequestParam(name = "Search") String passWord) {
+
+        boolean isFound = false;
+
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).getPassword().equals(passWord)) {
-                events.remove(events.get(i));
+                model.addAttribute("Chosen event",events.get(i));
+                chosenEvent = events.get(i);
+                isFound = true;
+                model.addAttribute("Could not find event", "");
+                break;
+            }
+            else {
+                model.addAttribute("Could not find event", "Could not find event...");
             }
         }
-        model = null;
-        model.addAttribute("events", session.getAttribute("Event"));
 
-        System.out.println(session.getAttribute("Event"));
-    */
-        return "index.html";
-
+        if (isFound) {
+            return "searchedevent.html";
+        }
+        else {
+            return "couldntfindevent.html";
+        }
 
     }
 
+    @PostMapping("/eventdelected.html")
+    public String deleteEvent() {
+
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).toString() == chosenEvent.toString()){
+                events.remove(i);
+            }
+        }
+
+        return "eventdelected.html";
+    }
+
     @GetMapping("/index.html")
-    public String goBack() {
+    public String goBack(Model model) {
         isAnSubmitError = false;
+        model.addAttribute("Could not find event", "");
         return "index.html";
     }
 
